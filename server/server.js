@@ -10,11 +10,7 @@ const PORT = process.env.PORT || 4000;
 const app = express();
 
 app.use(express.json());
-app.use(cors({
-  origin: ["https://imagify-frontend-u9m6.onrender.com"], // Your deployed frontend
-  credentials: true
-}));
-
+app.use(cors());
 
 await connectDB(); // ✅ Top-level await is allowed in ES Modules
 app.use('/api/user', userRouter)
