@@ -10,24 +10,13 @@ const PORT = process.env.PORT || 4000;
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
-// ✅ Configure CORS properly
-app.use(cors({
-  origin: "https://imagify-frontend-siot.onrender.com", // Replace with your deployed frontend URL
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
-}));
-
-// ✅ Connect to DB
-await connectDB();
-
-// ✅ Routes
-app.use('/api/user', userRouter);
-app.use('/api/image', imageRouter);
-
+await connectDB(); // ✅ Top-level await is allowed in ES Modules
+app.use('/api/user', userRouter)
+app.use('/api/image', imageRouter)
 app.get('/', (req, res) => res.send("API Working"));
 
-// ✅ Start Server
 app.listen(PORT, () => {
-  console.log(`Server is running at http://localhost:${PORT}`);
+  console.log("Server is running at http://localhost:${PORT}");
 });
